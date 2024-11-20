@@ -53,3 +53,36 @@
 - build.gradle : 빌드 설정
 - settings.gradle : 프로젝트 정보
 
+<br/>
+
+### 참고
+- www.w3schools.com/sql
+- REST : Representational State Transfer. 자원을 어떻게 교환할지에 대한 규약. 그냥 웹 통신 ㅋ
+- RESTful API : 설계할때 동사를 쓰지 않는다. 기본적으로 자원을 어떻게 한다의 행위가 내포되어있으므로 자원의 명칭만을 쓰는걸로 한다.
+- HTTP : 메서드 GET 조회, POST 추가, PUT 수정, DELETE 삭제 : CRUD
+
+<br/>
+
+### 응답코드
+- 200 ok
+- 201 created : 요청이 성공적으로 수행되었고, 새로운 리소스가 생성되었음
+- 400 bad request : 요청 값이 잘못되어 요청에 실패했음
+- 403 forbidden : 권한이 없어 요청에 실패했음
+- 404 not found : 요청 값으로 찾은 리소스가 없어 요청에 실패했음
+- 500 internal sever error : 서버 상에 문제가 있어 요청에 실패했음
+
+### 애너테이션 annotation
+- @GetMapping : 조회
+- @PostMapping : 컨트롤러 객체 안에 실행할 메서드에 붙임. 생성
+- @Putmapping : 수정
+- @DeleteMaping : 삭제
+- @RestController : 컨트롤러 객체에 붙임. 응답을  json 형식으로 반환함
+- @RequestBody : 매개변수에 붙임. 요청의 본문(아마 post 파라매터) 
+- @AutoConfigureMockMvc : 테스트 객체에 붙임. 서버환경을 구성해줌
+- @SpringBootTest : 테스트 객체에 붙임
+- @PathVariable : 매개변수에 붙임. url 에서 변수명과 같은 값을 추출
+
+### 템플릿 엔진
+- jsp
+- 타임리프 : 스프링 권장 템플릿. implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+- 프리마커

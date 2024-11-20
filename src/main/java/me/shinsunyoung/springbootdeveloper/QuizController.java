@@ -1,10 +1,7 @@
 package me.shinsunyoung.springbootdeveloper;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class QuizController {
@@ -18,6 +15,7 @@ public class QuizController {
         };
     }
 
+    @PostMapping("/quiz")
     public ResponseEntity<String> quiz2(@RequestBody Code code){
         return switch (code.value()){
             case 1 -> ResponseEntity.status(403).body("Forbidden!");

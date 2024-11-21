@@ -70,19 +70,32 @@
 - 403 forbidden : 권한이 없어 요청에 실패했음
 - 404 not found : 요청 값으로 찾은 리소스가 없어 요청에 실패했음
 - 500 internal sever error : 서버 상에 문제가 있어 요청에 실패했음
-
+<br/>
 ### 애너테이션 annotation
 - @GetMapping : 조회
 - @PostMapping : 컨트롤러 객체 안에 실행할 메서드에 붙임. 생성
 - @Putmapping : 수정
 - @DeleteMaping : 삭제
 - @RestController : 컨트롤러 객체에 붙임. 응답을  json 형식으로 반환함
+- @Controller : 컨트롤러 객체에 붙임. 응답을 String 형식으로 반환함. resources/templates 폴더에서 뷰를 찾음
 - @RequestBody : 매개변수에 붙임. 요청의 본문(아마 post 파라매터) 
 - @AutoConfigureMockMvc : 테스트 객체에 붙임. 서버환경을 구성해줌
 - @SpringBootTest : 테스트 객체에 붙임
 - @PathVariable : 매개변수에 붙임. url 에서 변수명과 같은 값을 추출
+- @RequestParam : 매개변수에 붙임. 요청 파라매터를 변수에 매핑 시켜줌
+
+
+<br/>
 
 ### 템플릿 엔진
 - jsp
 - 타임리프 : 스프링 권장 템플릿. implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 - 프리마커
+
+
+<br/> 
+
+### 시큐리티
+- 폼 로그인 방식 : 세션기반인증(서버), 스프링 시큐리티, UserDetails 상속받음
+- OAuth2
+- JWT : JSON Web Token 토큰기반인증(클라이언트)

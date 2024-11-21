@@ -17,10 +17,14 @@ spring:
   # db 연결?
   datasource:
     url: jdbc:h2:mem:testdb
+    username: sa
 
   # 데이터 확인 localhost:8080/h2-console
   h2:
     console:
       enabled: true
 
+jwt:
+  issuer: ajufresh@gmail.com
+  secret_key: study-springboot
 # yaml 은 들여쓰기를 사용하여 계층을 나타냄.

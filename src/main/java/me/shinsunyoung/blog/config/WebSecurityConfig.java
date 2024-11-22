@@ -38,7 +38,8 @@ public class WebSecurityConfig {
         return http.authorizeRequests(auth -> auth
                 .requestMatchers(new AntPathRequestMatcher("/login"),
                         new AntPathRequestMatcher("/signup"),
-                        new AntPathRequestMatcher("/user"))
+                        new AntPathRequestMatcher("/user"),
+                        new AntPathRequestMatcher("/api/token")) // TODO 테스트때 막혀서 넣었음.
                 .permitAll()
                 .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin

@@ -7,12 +7,16 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import me.shinsunyoung.blog.domain.User;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.extras.springsecurity6.dialect.processor.AuthenticationAttrProcessor;
 
 import java.time.Duration;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
@@ -40,17 +44,30 @@ public class TokenProvider {
 
     public boolean validToken(String token){
         try{
-            Jwts.parser().setSigningKey(jwtProperties.getSecretKey()).parseClaimsJwt(token);
+            Jwts.parser().setSigningKey(jwtProperties.getSecretKey()).parseClaimsJws(token);
+            //JWT가 서명되지 않은 토큰(Plaintext)이라면, parseClaimsJws 대신 parseClaimsJwt 메서드를 사용해야 합니다.
             return true;
         } catch (Exception e) {
+            System.out.println(e);
             return false;
         }
     }
 
-    // TODO 하는중
-//    public Authentication getAuthentication(String token){
-//        Claims claims;
-//    }
+
+    // 토큰기반으로 인증정보를 가져옴
+    public Authentication getAuthentication(String token){
+        Claims claims = getClaims(token);
+        Set<SimpleGrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+
+        return new UsernamePasswordAuthenticationToken(new org.springframework.security.core.userdetails.User(
+                claims.getSubject(), "", authorities), token, authorities);
+    }
+
+    // 토큰 기반으로 유저 id를 가져오는 메서드
+    public Long getUserId(String token){
+        Claims claims = getClaims(token);
+        return claims.get("id", Long.class);
+    }
 
 
 
@@ -58,7 +75,7 @@ public class TokenProvider {
 
     private Claims getClaims(String token){
         return Jwts.parser().setSigningKey(jwtProperties.getSecretKey())
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
     }
 }

@@ -8,6 +8,7 @@ import me.shinsunyoung.blog.domain.User;
 import me.shinsunyoung.blog.dto.CreateAccessTokenRequest;
 import me.shinsunyoung.blog.repository.RefreshTokenRepository;
 import me.shinsunyoung.blog.repository.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,7 @@ class TokenApiControllerTest {
     @Autowired
     RefreshTokenRepository refreshTokenRepository;
 
+    @BeforeEach
     public void mockMvcSetUp(){
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
         userRepository.deleteAll();
@@ -61,7 +63,7 @@ class TokenApiControllerTest {
         User testUser = userRepository.save(User.builder()
                         .email("user@gmail.com")
                         .password("test")
-                .build());
+                .build()); // 유저를 등록하면 로그인이 되는건가?
 
         String refreshToken = JwtFactory.builder()
                 .claims(Map.of("id", testUser.getId()))
